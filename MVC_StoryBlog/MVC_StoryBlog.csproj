@@ -834,6 +834,7 @@
     <Content Include="Models\Model_sb.edmx.diagram">
       <DependentUpon>Model_sb.edmx</DependentUpon>
     </Content>
+    <Content Include="libman.json" />
     <None Include="Properties\PublishProfiles\BLOG.pubxml" />
     <None Include="Properties\PublishProfiles\CustomProfile.pubxml" />
     <None Include="Scripts\jquery-1.7.1.intellisense.js" />
