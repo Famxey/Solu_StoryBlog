@@ -1,0 +1,149 @@
+﻿@model List<MVC_StoryBlog.Models.PicClsHelper>
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Article</title>
+    <link href="~/Content/css/personalStyleM.css" rel="stylesheet" />
+    <link href="~/Content/themes/default/easyui.css" rel="stylesheet" />
+    <link href="~/Content/themes/icon.css" rel="stylesheet" />
+    <script src="~/Scripts/jquery-1.8.2.min.js"></script>
+    <script src="~/Scripts/jquery.easyui.min.js"></script>
+    <script src="~/Scripts/easyui-lang-zh_CN.js"></script>
+
+    <script type="text/javascript">
+        function Delete(ID) {
+
+            $.messager.confirm('确认对话框', '您确定要删除？', function (r) {
+                if (r) {
+                    url = "/PersonalBlog/PicClsDel";
+                    paramenter = { id: ID };
+                    $.post(url, paramenter, function (data) {
+                        //alert("删除成功！");
+                        //刷新页面
+                        window.location.reload();
+                    });
+
+                }
+            });
+
+        }
+
+        function Update(ID, desc, picCls) {
+            $('#dd').dialog('open').dialog('setTitle', "修改相册");
+            $('#cls').val(picCls);
+            $('#clsid').val(ID);
+            $('#desc').val(desc);
+        }
+
+        function btnClose() {
+
+            $('#dd').dialog('close');
+
+        }
+
+        function btnOK() {
+
+            $('#artfrm').form('submit', {
+                url: "/PersonalBlog/PicClsUpdate",
+                onSubmit: function () {
+                    // do some check    
+                    // return false to prevent submit; 
+                    return $(this).form('validate');
+                },
+                success: function (data) {
+                    var result = eval('(' + data + ')');
+                    if (result.ok) {
+                        //刷新页面
+                        //$.messager.alert("提示！", "修改成功！");
+                        window.location.reload();
+                    }
+
+                }
+            });
+
+        }
+
+    </script>
+
+</head>
+<body>
+    <table id="atb" cellspacing="0">
+        <tr>
+
+            <th class="th3">相册名</th>
+            <th class="th2">描述</th>
+            <th class="th3">状态</th>
+            <th class="th3">照片量</th>
+            <th class="th4">操作</th>
+        </tr>
+        @foreach (var item in Model)
+        {
+            <tr>
+
+                <td class="th3">
+                    <a href="/mypicture/SelClsPic?id=@item.ID&&uA=@item.uAccount " target="_top">@item.picClsTitle</a>
+                </td>
+
+                <td class="th2">@item.picClsDescribe</td>
+                <td class="th3">
+                    @{if (@item.picClsAuthority == 1)
+                      {
+                        <span>公开</span>
+                      }
+                      else
+                      {
+                        <span>保密</span>
+                          
+                      }
+                    }
+
+
+                </td>
+                <td class="th3">@item.picClsPicCnt</td>
+                <td class="th4">
+                    <a href="#" onclick="Update(@item.ID,'@item.picClsDescribe','@item.picClsTitle')" >修改</a>丨<a href="#" onclick="Delete(@item.ID)">删除</a></td>
+            </tr> 
+        }
+
+    </table>
+
+    <div id="dd" class="easyui-dialog" style="width: 252px; height: 260px;"
+        data-options="iconCls:'icon-edit',resizable:true,modal:true,closed:true,buttons:'#bb',resizable:false,">
+        <form id="artfrm">
+
+            <p>
+                <input type="text" id="clsid" name="ID" style="display: none" />
+            </p>
+            <p style="margin: 10px;">
+                册名：
+                <input id="cls" name="picClsTitle" class="easyui-validatebox" data-options="required:true,validType:'minLength[5]'">
+            </p>
+            <p style="margin: 10px;">
+                状态：<select id="picClsAuthority" name="picClsAuthority">
+                    <option value="1">公开</option>
+                    <option value="0">保密</option>
+                </select>
+            </p>
+            <p style="margin: 10px;">描述：</p>
+            <p style="margin: 10px;">
+                <textarea id="desc" name="picClsDescribe" style="height: 65px; width: 210px;"> </textarea>
+            </p>
+
+        </form>
+    </div>
+
+    <div id="bb">
+        <a href="#" class="easyui-linkbutton" onclick="btnOK()">保存</a>
+        <a href="#" class="easyui-linkbutton" onclick="btnClose()">关闭</a>
+    </div>
+
+</body>
+</html>
+

@@ -1,0 +1,107 @@
+﻿@model List<MVC_StoryBlog.Models.PicHelper>
+
+@{
+    ViewBag.Title = "照片墙——因有事迹，才会浪漫！";
+}
+
+<link href="~/Content/picturewall/css/normalize.css" rel="stylesheet" />
+<link href="~/Content/picturewall/css/jquery.mosaic.css" rel="stylesheet" />
+
+<script type="text/javascript">
+
+    function Reload() {
+        //刷新页面
+        window.location.reload();
+    }
+
+</script>
+
+<style type="text/css">
+    #frameContent {
+        height: 1797px;
+        background-image: url(../../Images/2.jpg);
+        width: 100%;
+        overflow: hidden;
+    }
+
+    #pages {
+        position: fixed;
+        bottom: 10%;
+        right: 30%;
+        background-color: rgba(154, 136, 136, 0.37);
+        padding: 10px;
+    }
+
+    #reload {
+        position: fixed;
+        top: 15%;
+        right: 10%;
+        /*background-color: rgba(154, 136, 136, 0.37);*/
+        padding: 10px;
+    }
+
+        #reload a {
+            color: green;
+            text-decoration: none;
+        }
+</style>
+
+
+<div id="frameContent">
+
+    <div id="mosaic" class="mosaic">
+
+        @foreach (var item in Model)
+        {           
+            <img src="@item.ImgFile" width="150" height="100"/>              
+        }
+    </div>
+
+    @* 防止div塌陷*@
+    <div style="text-align: center; clear: both;">
+    </div>
+</div>
+<div id="pages" style="font-size: 12px; width: auto; line-height: 40px; text-align: center;">
+    分页 页数 
+</div>
+<div id="reload"><a href="javascript: Reload()">
+    <img src="~/Images/Refresh.png" width="32" height="32" /></a></div>
+
+<script language="javascript">
+    var obj = document.getElementById("frameContent");  //获取内容层
+    var pages = document.getElementById("pages");         //获取翻页层
+    var pgindex = 1;                                      //当前页
+    window.onload = function ()                             //重写窗体加载的事件
+    {
+        var allpages = Math.ceil(parseInt(obj.scrollHeight) / parseInt(obj.offsetHeight));//获取页面数量
+        pages.innerHTML = "<b>共" + allpages + "页</b> ";     //输出页面数量
+        for (var i = 1; i <= allpages; i++) {
+            pages.innerHTML += "<a href=\"javascript:showPage('" + i + "');\">第" + i + "页</a> ";
+            //循环输出第几页
+        }
+        pages.innerHTML += " <a href=\"javascript:gotopage('-1');\">上一页</a>  <a href=\"javascript:gotopage('1');\">下一页</a>"
+    }
+    function gotopage(value) {
+        try {
+            value == "-1" ? showPage(pgindex - 1) : showPage(pgindex + 1);
+        } catch (e) {
+
+        }
+    }
+    function showPage(pageINdex) {
+
+        obj.scrollTop = (pageINdex - 1) * parseInt(obj.offsetHeight);                                                                  //根据高度，输出指定的页
+        pgindex = pageINdex;
+    }
+</script>
+
+<script src="~/Content/picturewall/js/jquery-1.11.0.min.js"></script>
+<script src="~/Content/picturewall/js/jquery.mosaic.js"></script>
+<script type="text/javascript">
+
+    //可以调整照片显示大小
+    $('#mosaic').Mosaic({
+        maxRowHeight: 600,
+        highResImagesWidthThreshold: 640
+    });
+</script>

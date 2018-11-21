@@ -1,0 +1,43 @@
+﻿@model List<MVC_StoryBlog.Models.ArtHelper>
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>rendomArticle</title>
+    <link href="~/Content/css/indexStyle.css" rel="stylesheet" />
+    <script type="text/javascript">
+
+        function Reload() {
+            //刷新页面
+            window.location.reload();
+        }
+
+    </script>
+</head>
+<body>
+    <div id="l_bottom">
+        <div>
+            <p id="reloadart"><a onclick="Reload()">换一换</a></p>
+        </div>
+        @foreach (var item in Model)
+        {
+            <div class="randart">
+
+                <p class="rdTitle"><a href="/home/SelectArt?id=@item.artNo " target="_top" >@item.Title</a></p>
+
+                <p class="rdDigest">摘要：<a href="/home/SelectArt?id=@item.artNo " target="_top" title="摘要：@item.artDigest" >@item.artDigest</a></p>
+            </div>
+        }
+
+
+
+    </div>
+
+</body>
+</html>

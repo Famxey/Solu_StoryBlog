@@ -1,0 +1,35 @@
+﻿@model List<MVC_StoryBlog.Models.ArtHelper>
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>artInfo</title>
+</head>
+<body>
+    <link href="~/Content/css/AuthorArt.css" rel="stylesheet" />
+    <table id="atb" cellspacing="0">
+        <tr>
+            <th class="th2">标题</th>
+            <th class="th3">阅读量</th>
+            <th class="th3">评论量</th>
+        </tr>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td class="th2">
+                    <a href="/home/SelectArt?id=@item.artNo " target="_top" >《@item.Title》</a>
+                </td>
+                <td class="th3">@item.artHot</td>
+                <td class="th3">@item.artComCnt</td>
+            </tr> 
+        }
+
+    </table>
+</body>
+</html>

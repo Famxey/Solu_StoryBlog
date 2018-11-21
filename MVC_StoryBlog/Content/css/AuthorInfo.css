@@ -1,0 +1,19 @@
+﻿* {
+    margin:0px;
+    padding:0px;
+}
+body {
+    background-image: url(../../Images/AuthorIMG/A5.jpg);
+}
+
+#aicontent {
+    background-image: url(../../Images/AuthorIMG/A5.jpg);
+    height:100%;
+    width:100%;
+}
+
+#con {
+     border:1px solid rgba(128, 128, 128, 0.05);
+     height:auto;
+     width:auto;
+}

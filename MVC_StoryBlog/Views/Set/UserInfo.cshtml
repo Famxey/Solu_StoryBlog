@@ -1,0 +1,29 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title></title>
+<link href="~/Content/css/setStyle.css" rel="stylesheet" />
+
+</head>
+<body>
+    <div id="con1">
+        <p id="pp">基本信息</p>
+
+        <h1 style="padding:10px;">@ViewBag.User</h1>
+        <dl>
+            <dt>
+                <img id="pic" src="@ViewBag.pic" /></dt>
+            <dd>昵称：@ViewBag.nikename</dd>
+            <dd>性别：@ViewBag.gender</dd>
+            <dd>自我介绍：@ViewBag.describe</dd>
+            <dd>个人描述：@ViewBag.introduce</dd>
+        </dl>
+    </div>
+</body>
+</html>

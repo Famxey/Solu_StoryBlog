@@ -1,0 +1,109 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title></title>
+<link href="~/Content/css/setStyle.css" rel="stylesheet" />
+
+    <style type="text/css">
+        #preview {
+            width: 220px;
+            height: 220px;
+            /*border: 1px solid #000;*/
+            overflow: hidden;
+            margin-left: 8px;
+        }
+
+        #imghead {
+            filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod=image);
+        }
+    </style>
+
+    <script type="text/javascript">
+
+        function previewImage(file) {
+            var MAXWIDTH = 220;
+            var MAXHEIGHT = 220;
+            var div = document.getElementById('preview');
+            if (file.files && file.files[0]) {
+                div.innerHTML = '<img id=imghead>';
+                var img = document.getElementById('imghead');
+                img.onload = function () {
+                    var rect = clacImgZoomParam(MAXWIDTH, MAXHEIGHT, img.offsetWidth, img.offsetHeight);
+                    img.width = rect.width;
+                    img.height = rect.height;
+                    img.style.marginLeft = rect.left + 'px';
+                    img.style.marginTop = rect.top + 'px';
+                }
+                var reader = new FileReader();
+                reader.onload = function (evt) { img.src = evt.target.result; }
+                reader.readAsDataURL(file.files[0]);
+            }
+            else {
+                var sFilter = 'filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod=scale,src="';
+                file.select();
+                file.blur();
+                var src = document.selection.createRange().text;
+                div.innerHTML = '<img id=imghead>';
+                var img = document.getElementById('imghead');
+                img.filters.item('DXImageTransform.Microsoft.AlphaImageLoader').src = src;
+                var rect = clacImgZoomParam(MAXWIDTH, MAXHEIGHT, img.offsetWidth, img.offsetHeight);
+                status = ('rect:' + rect.top + ',' + rect.left + ',' + rect.width + ',' + rect.height);
+                div.innerHTML = "<div id=divhead style='width:" + rect.width + "px;height:" + rect.height + "px;margin-top:" + rect.top + "px;margin-left:" + rect.left + "px;" + sFilter + src + "\"'></div>";
+            }
+        }
+        function clacImgZoomParam(maxWidth, maxHeight, width, height) {
+            var param = { top: 0, left: 0, width: width, height: height };
+            if (width > maxWidth || height > maxHeight) {
+                rateWidth = width / maxWidth;
+                rateHeight = height / maxHeight;
+
+                if (rateWidth > rateHeight) {
+                    param.width = maxWidth;
+                    param.height = Math.round(height / rateWidth);
+                } else {
+                    param.width = Math.round(width / rateHeight);
+                    param.height = maxHeight;
+                }
+            }
+
+            param.left = Math.round((maxWidth - param.width) / 2);
+            param.top = Math.round((maxHeight - param.height) / 2);
+            return param;
+        }
+    </script>
+</head>
+<body>
+    <div id="con1">
+        <p id="pp">上传头像</p>
+
+        <h3 style="background-color: rgba(79, 32, 32, 0.00); color: green;">@ViewBag.cg</h3>
+        <h3 style="background-color: rgba(79, 32, 32, 0.00); color: red;">@ViewBag.cg1</h3>
+        <h1 style="padding: 10px;">@Session["User"]</h1>
+        <img  style="height:150px;width:150px;margin-left: 10px;" src="@Session["pic"]" />
+        <img style="height:150px;width:150px;margin-left: 10px;" src="@ViewBag.pic1" />
+        <br />
+
+        <hr style="border:1px solid rgba(155, 120, 120, 0.71); margin-top:15px;margin-bottom:15px;" />
+        <div style="border-top:1px dashed rgba(84, 213, 209, 0.72);">
+            @using (Html.BeginForm("uploadpic", "set", FormMethod.Post, new { enctype = "multipart/form-data" }))
+            {
+                <p style=" margin-left: 8px;padding:5px; color:white;">请点击浏览，选择需要上传的照片:</p>
+                <p style=" margin-left: 8px;padding:5px;">
+                    <input style="width:180px;" type="file" onchange="previewImage(this)" name="file" id="file" />
+                     <input type="submit" value="上传" />
+                </p>                              
+            }
+            <div id="preview">
+                <img id="imghead" src="" />
+            </div>
+        </div>
+
+    </div>
+</body>
+</html>

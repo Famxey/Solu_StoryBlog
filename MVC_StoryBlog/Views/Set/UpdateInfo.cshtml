@@ -1,0 +1,53 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title></title>
+  <link href="~/Content/css/setStyle.css" rel="stylesheet" />
+
+    <style type="text/css">
+        .yan4 {
+            margin-left: 8px;
+        }
+
+        .y5 {
+            padding-top: 10px;
+        }
+    </style>
+</head>
+<body>
+
+    <div id="con1">
+        <p id="pp">修改资料</p>
+
+        <h3 style="background-color: rgba(79, 32, 32, 0.00); color: green;">@ViewBag.Info</h3>
+        <h3 style="background-color: rgba(79, 32, 32, 0.00); color: red;">@ViewBag.Info4</h3>
+
+        @using (Html.BeginForm("updateinfo", "set", FormMethod.Post))
+        {
+            <p class="yan4 y5">昵称</p>@*
+            <p class="yan4">@Html.TextBox("nickname")</p>*@
+            <p class="yan4">
+                <input type="text" id="nickname" name="nickname" value="@ViewBag.unick" />
+            </p>
+            
+            <p class="yan4 y5">性别</p>            
+            <p class="yan4">@Html.DropDownList("gender", new SelectList(new[] { "保密", "男", "女" }))</p>
+            
+            <p class="yan4 y5">自我介绍（不超过150字数）</p>            
+            <p class="yan4 ">@Html.TextArea("introduce", null, 8, 40, null)</p>
+            
+            <p class="yan4 y5">个人描述（不超过150字数）</p>            
+            <p class="yan4">@Html.TextArea("describe", null, 8, 40, null)</p>
+            <p class="yan4 y5">
+                <input type="submit" value="提交" />
+            </p>    
+        }
+    </div>
+</body>
+</html>

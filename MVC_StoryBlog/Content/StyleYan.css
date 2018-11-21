@@ -1,0 +1,39 @@
+﻿* {
+    margin: 0px;
+    padding: 0px;
+}
+
+
+#pp {
+     border: 5px solid rgba(166, 224, 224, 0.10);
+    color: white;
+    height: 50px;
+    width: 480px;
+    text-align: left;
+    font-size: 30px;
+    font-weight: bold;
+    background-color: rgba(216, 139, 139, 0.58);
+    padding-left: 15px;
+}
+
+dl {
+    color: white;
+}
+
+dd {
+    padding: 10px;
+}
+
+dt {
+    margin-left: 10px;
+}
+
+#pic {
+    height: 150px;
+    width: 150px;
+}
+
+h3 {
+    background-color:rgba(187, 165, 165, 0.00);
+}
+

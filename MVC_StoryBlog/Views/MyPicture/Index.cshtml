@@ -1,0 +1,216 @@
+﻿@model List<MVC_StoryBlog.Models.PicClsHelper>
+
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>个人中心--相册</title>
+    <link href="~/Content/css/mypicturestyle.css" rel="stylesheet" />
+    <link href="~/Content/themes/default/easyui.css" rel="stylesheet" />
+    <link href="~/Content/themes/icon.css" rel="stylesheet" />
+    <script src="~/Scripts/jquery-1.7.1.min.js"></script>
+    <script src="~/Scripts/jquery.easyui.min.js"></script>
+    <script src="~/Scripts/easyui-lang-zh_CN.js"></script>
+    <script type="text/javascript">
+
+        $(function () {
+
+            //读取属于当前文档的所有cookies
+            var allcookies = document.cookie;
+
+            //定义一个函数，用来读取特定的cookie值。
+            function getCookie(cookie_name) {
+                var allcookies = document.cookie;
+                var cookie_pos = allcookies.indexOf(cookie_name);   //索引的长度
+
+                // 如果找到了索引，就代表cookie存在，
+                // 反之，就说明不存在。
+                if (cookie_pos != -1) {
+                    // 把cookie_pos放在值的开始，只要给值加1即可。
+                    cookie_pos += cookie_name.length + 1;      //这里容易出问题，所以请大家参考的时候自己好好研究一下
+                    var cookie_end = allcookies.indexOf(";", cookie_pos);
+
+                    if (cookie_end == -1) {
+                        cookie_end = allcookies.length;
+                    }
+
+                    var value = unescape(allcookies.substring(cookie_pos, cookie_end));         //这里就可以得到你想要的cookie的值了。。。
+                }
+                return value;
+            }
+
+            var cookie_val = getCookie("User");
+
+            $("#user").val(cookie_val);
+
+            var user = document.getElementById("user").value;
+
+            if (user != "") {
+                var zx = "注销";
+                document.getElementById("register").innerHTML = zx;
+                document.getElementById("login").innerHTML = user;
+                document.getElementById("login").href = "/set/index";
+                document.getElementById("register").href = "/login/Index";
+                document.getElementById("personal").href = "/personalblog/Index";
+            }
+
+        });
+
+
+        function linkpiccls() {
+            $('#ddPicCls').dialog({
+                title: '新建相册',
+                width: 440,
+                height: 490,
+                closed: false,
+                cache: false,
+                href: '/mypicture/addpiccls',
+                modal: true,
+                resizable:true,
+            });
+        }
+
+        function linkpic() {
+            $('#ddPic').dialog({
+                title: '上传照片',
+                width: 440,
+                height: 490,
+                closed: false,
+                cache: false,
+                href: '/mypicture/addpic',
+                modal: true,
+                resizable: true,
+            });
+        }
+
+        function Update(id, name, desc) {
+            $('#dd').dialog('open').dialog('setTitle', "修改相册");
+            $('#clss').val(name);
+            $('#clsids').val(id);
+            $('#descr').val(desc);
+        }
+
+        function btnClose() {
+
+            $('#dd').dialog('close');
+
+        }
+
+        function btnOK() {
+
+            $('#artfrm').form('submit', {
+                url: "/mypicture/PicClsUpdate",
+                onSubmit: function () {
+                    // do some check    
+                    // return false to prevent submit; 
+                    return $(this).form('validate');
+                },
+                success: function (data) {
+                    var result = eval('(' + data + ')');
+                    if (result.ok) {
+                        //刷新页面
+                        //$.messager.alert("提示！", "修改成功！");
+                        window.location.reload();
+                    }
+
+                }
+            });
+
+        }
+
+    </script>
+</head>
+<body>
+    <div id="tops">
+        <div id="t_con">
+            <ul>
+                <li><a href="/home">首页</a></li>
+                <li><a href="/myarticle/index">写文章</a></li>
+                <li><a href="/personalblog/index">个人中心</a></li>
+            </ul>
+            <p id="lr">
+                <input id="user" /><span><a id="login" href="/login/index">登录</a></span>丨<span><a id="register" href="/register/index">注册</a></span>
+            </p>
+        </div>
+    </div>
+
+    <div id="contents">
+        <div id="banner"></div>
+        <img id="pic" src="@ViewBag.picture" width="140" height="140" />
+        <div id="con">
+            @*博客管理框架内容*@
+            <div id="flexbtn">
+                <a id="btnPicCls" class="easyui-linkbutton" onclick="linkpiccls()">新建相册</a>
+                <br />
+                <a id="btnPic" class="easyui-linkbutton" onclick="linkpic()">上传照片</a>
+            </div>
+
+            <div id="picbox">
+
+                @foreach (var cls in Model)
+                {                
+                    <dl>
+                        <dt>
+                            <a href="/mypicture/SelClsPic?id=@cls.ID&&uA=@cls.uAccount"  >
+                                <img src="@cls.CoverFile" width="215" height="280" />
+                            </a>
+                            <a id="btnEdit" onclick="Update(@cls.ID,'@cls.picClsTitle','@cls.picClsDescribe')" class="easyui-linkbutton" data-options="iconCls:'icon-edit'">编辑</a>
+                        </dt>
+                        <dd class="cls">@cls.picClsTitle</dd>
+                        <dd class="clsdec">@cls.picClsDescribe </dd>
+                    </dl>
+                }
+            </div>
+        </div>
+    </div>
+
+    <div id="bottoms">
+        <h4>Copyright (c) StoryBlog . All Rights Reserved .</h4>
+    </div>
+
+    <div id="ddPicCls">
+    </div>
+    <div id="ddPic">
+    </div>
+
+    <div id="dd" class="easyui-dialog" style="width: 252px; height: 340px;"
+        data-options="iconCls:'icon-edit',resizable:true,modal:true,closed:true,buttons:'#bb',resizable:false,">
+        <form id="artfrm" enctype="multipart/form-data" method="post">
+
+            <p>
+                <input type="text" id="clsids" name="ID" style="display: none" />
+            </p>
+            <p style="margin: 10px;">
+                册名：
+                <input id="clss" name="picClsTitle" class="easyui-validatebox" data-options="required:true,validType:'minLength[5]'">
+            </p>
+            <p style="margin: 10px;">
+                状态：<select id="picClsAuthority" name="picClsAuthority">
+                    <option value="1">公开</option>
+                    <option value="0">保密</option>
+                </select>
+            </p>
+            <p style="margin: 10px;">描述：</p>
+            <p style="margin: 10px;">
+                <textarea id="descr" name="picClsDescribe" style="height: 65px; width: 210px;"> </textarea>
+            </p>
+            <p style="margin: 10px;">更改封面：</p>
+            <p style="margin: 10px;">
+                <input style="width: 180px;" type="file" name="CoverFile" id="CoverFile" class="easyui-validatebox" required="true" />
+            </p>
+        </form>
+    </div>
+
+    <div id="bb">
+        <a href="#" class="easyui-linkbutton" onclick="btnOK()">保存</a>
+        <a href="#" class="easyui-linkbutton" onclick="btnClose()">关闭</a>
+    </div>
+
+</body>
+</html>

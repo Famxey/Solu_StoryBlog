@@ -1,0 +1,15 @@
+﻿* {
+    margin: 0px;
+    padding: 0px;
+}
+
+#registerbox {
+    /*border: 1px solid red;*/
+    position:relative;
+    top:-300px;
+}
+
+#c_bottom {
+    position:absolute;
+    bottom:0px;
+}

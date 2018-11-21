@@ -1,0 +1,107 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>登录——因有事迹，才会浪漫！</title>
+    @Styles.Render("~/Content/css/LoginStyle.css")
+    <link href="~/Content/drag.css" rel="stylesheet" />
+    <script src="~/Scripts/js/jquery-1.7.2.min.js"></script>
+</head>
+<body>
+    <video id="video1" autoplay="autoplay" muted="muted" loop="loop">
+        <source src="~/Video/video1.mp4" />
+    </video>
+    <div id="content">
+        @* 页眉*@
+        <div id="c_top">
+            <div id="t_con">
+                <ul>
+                    <li><a href="/home">首页</a></li>
+                    <li><a href="/storyClunms/Index">故事栏</a></li>
+                    <li><a href="/picturewall/Index">照片墙</a></li>
+                    <li><a href="/home/Contact">联系我们</a></li>
+                </ul>
+            </div>
+        </div>
+        @*登录框*@
+        <div id="c_midlle">
+            <div id="cmfont">
+                <p class="p_font">因</p>
+                <p class="p_font">&nbsp;&nbsp;有</p>
+                <p class="p_font">&nbsp;&nbsp;&nbsp;&nbsp;事迹</p>
+                <p class="p_font">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p>
+                <p class="p_font">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;才</p>
+                <p class="p_font">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;会</p>
+                <p class="p_font">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;浪</p>
+                <p class="p_font">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;漫</p>
+            </div>
+            <div id="loginbox">
+                @using (Html.BeginForm())
+                {
+                    <div id="luodlk">
+                        <div class="luokuan">
+                            <input onclick="luosbiao()" class="luosrk" required='' name="Account" id="Account" type="text" oninput="setCustomValidity('')" oninvalid="setCustomValidity('用户名不能为空')" placeholder="用户名/手机号/邮箱" />
+                        </div>
+                        <div class="luokuan">
+                            <input onclick="luosbiao()" class="luosrk" required='' name="PassWord" id="PassWord" type="password" oninput="setCustomValidity('')" oninvalid="setCustomValidity('密码不能为空')" placeholder="密码" />
+                            <p id="luotishi" style="color: red;">@ViewBag.yanzheng</p>
+                        </div>
+                        <div id="luobtn">
+                            <div id="drag"></div>
+                            <div>
+                                <!--复选框-->
+                                <section title=".squaredFour">
+                                    <!-- .squaredFour -->
+                                    <div class="squaredFour">
+                                        <input type="checkbox" id="squaredFour" name="ckif" value="sunday" />
+                                        <label for="squaredFour"></label>
+                                    </div>
+                                    <!-- end .squaredFour -->
+                                </section>
+                                <p id="luomian">&nbsp;一周内免登录&nbsp;&nbsp;&nbsp;&nbsp;<a id="luozc" href="/register/index">注册</a>|<a href="#" id="luozhaohui" onclick="luozhmm()">找回密码</a></p>
+                            </div>
+
+                            <div id="luodl">
+                                <input type="submit" id="luodd" onclick="luods()" value="登录" />
+                            </div>
+                        </div>
+                    </div>
+                }
+
+                <div id="luozhaomm">
+                    <form id="form1">
+                        <h1>找回密码</h1>
+                        <input class="luophone" required='' id="phone" type="text" oninput="setCustomValidity('')" oninvalid="setCustomValidity('手机号或账号不能为空！')" placeholder="手机号/账号" />
+                        <div id="luohuoqu">
+                            <p><a href="#" id="luohuoqua" onclick="sendMessage()">获取验证码</a></p>
+                        </div>
+                        <input required='' id="luosryzm" type="text" oninput="setCustomValidity('')" oninvalid="setCustomValidity('验证码不能为空')" placeholder="验证码" />
+                        <br />
+                        <input type="submit" value="提交" id="luotijiao" />
+                        <a href="#" id="luofanhui" onclick="luofhdl()">返回登录</a>
+                    </form>
+                </div>
+            </div>
+     
+
+    </div>
+        @* 页脚*@
+        <div id="c_bottom">
+            <h4>Copyright (c) StoryBlog . All Rights Reserved .</h4>
+        </div>
+
+    </div>
+    <a href="/adminlogin/index" id="adlogin">后台登录</a>
+    <script src="~/Scripts/js/drag.js"></script>
+
+    <script type="text/javascript">
+        $('#drag').drag();
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,100 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>PictureManage</title>
+</head>
+<body>
+    <script type="text/javascript">
+
+        $('#dgPic').datagrid({
+            fit: true,
+            fitColumns: true,
+            remoteSort: false,
+            pagination: true,
+            pageSize: 5,
+            pageList: [5, 15, 30, 60],
+            url: '/admin/PictureManageSel',
+            columns: [[
+                { align: 'center', checkbox: true, field: 'ck' },
+                { field: 'ID', title: '编号', align: 'center', sortable: true, },
+                { field: 'Name', title: '名称', align: 'center' },
+                { field: 'ImgFile', title: '照片', align: 'center', formatter: Picture },
+                { field: 'uAccount', title: '所属作者', align: 'center' },
+                { field: 'picClsTitle', title: '所属相册', align: 'center', },
+                { field: 'picDescribe', title: '描述', width: 100, align: 'center' },
+                { field: 'picHot', title: '浏览量', align: 'center', sortable: true, },
+                { field: 'picCreateTimeA', title: '上传时间', align: 'center', sortable: true, },
+            ]],
+            toolbar: '#tbpic'
+        });
+
+        function Picture(value, row, index) {
+            return "<img height='112' width='112' src='" + value + "' />";
+        }
+
+
+        function picRemove() {
+            var rows = $('#dgPic').datagrid('getSelections');
+
+            if (rows.length > 0) {
+
+                if (confirm("确认删除？")) {
+                    var parm;
+                    $.each(rows, function (i, n) {
+                        if (i == 0) {
+                            parm = "ID=" + n.ID;
+                        }
+                        else {
+                            parm += "&ID=" + n.ID;
+
+                        }
+                    });
+
+                    $.ajax({
+                        url: '/admin/PictureManageDel',
+                        data: parm,
+                        type: 'post',
+                        success: function (date) {
+                            if (date == "OK") {
+                                alert("操作成功！");
+                                $('#dgPic').datagrid('reload');
+                                $('#dgPic').datagrid('clearSelections');
+                            }
+                        }
+                    });
+
+                }
+
+            } else {
+                alert("请选择数据，再操作！");
+            }
+
+
+        }
+
+
+        function picSearch() {
+
+            $('#dgPic').datagrid('load', { picAccount: $('#picSER').val() });
+
+        }
+
+
+    </script>
+
+    <table id="dgPic"></table>
+
+    <div id="tbpic">
+        <a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-remove',plain:true" onclick="picRemove()" title="选择用户，点击删除"></a>
+        <input class="easyui-textbox" data-options="iconCls:'icon-search'" style="width: 150px" id="picSER" />
+        <a href="#" class="easyui-linkbutton" style="width: 60px" data-options="iconCls:'icon-search',plain:true" onclick="picSearch()" title="在输入框里，输入作者账号或照片名称，点击进行搜索"></a>
+    </div>
+
+</body>
+</html>

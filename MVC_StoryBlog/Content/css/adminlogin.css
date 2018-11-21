@@ -1,0 +1,52 @@
+﻿* {
+    margin: 0px;
+    padding: 0px;
+}
+
+body {
+    background-image: url(../../Images/AuthorIMG/A6.jpg);
+}
+
+#adLoginBox {
+    border: 12px solid rgba(61, 54, 161, 0.20);
+    height: 200px;
+    width: 240px;
+    margin: 0px auto;
+    position: absolute;
+    top: 32%;
+    left: 43%;
+}
+
+    #adLoginBox #admintb {
+        border: 2px solid rgba(61, 54, 161, 0.30);
+        background-color: rgba(61, 54, 161, 0.40);
+        height: 200px;
+        width: 240px;
+    }
+
+.td2 {
+    text-align: right;
+}
+
+
+.td3 {
+    text-align: center;
+}
+
+#btnlogin {
+    height: 30px;
+    width: 80px;
+    font-weight: bold;
+    color: rgba(61, 54, 161, 0.80);
+    border: 1px solid rgba(61, 54, 161, 0.60);
+}
+
+#backIndex {
+    text-decoration: none;
+}
+
+    #backIndex:hover {
+        text-decoration: underline;
+        font-weight: bold;
+        color: white;
+    }

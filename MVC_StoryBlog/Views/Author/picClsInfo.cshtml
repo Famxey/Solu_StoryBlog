@@ -1,0 +1,35 @@
+﻿@model List<MVC_StoryBlog.Models.PicClsHelper>
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>picClsInfo</title>
+
+</head>
+<body>
+    <link href="~/Content/css/AuthorPicCls.css" rel="stylesheet" />
+    <div id="contents">
+        <div id="frameContent">
+            @*博客管理框架内容*@
+
+            @foreach (var cls in Model)
+            {                
+                <dl>
+                    <dt>
+                        <a href="/mypicture/SelClsPic?id=@cls.ID&&uA=@cls.uAccount" title="描述：@cls.picClsDescribe " >
+                            <img src="@cls.CoverFile" width="86" height="112" />
+                        </a>
+                    </dt>
+                    <dd class="cls">@cls.picClsTitle</dd>
+                </dl>
+            }
+        </div>
+    </div>
+</body>
+</html>

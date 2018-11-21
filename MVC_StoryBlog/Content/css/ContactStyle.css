@@ -1,0 +1,35 @@
+﻿
+* {
+    margin: 0px;
+    padding: 0px;
+}
+
+#content {
+    /*border: 1px solid red;*/
+    background-image: url(../../Images/01.jpg);
+    background-repeat: round;
+    height: auto;
+    width: 100%;
+    padding-top: 45px;
+    padding-bottom: 30px;
+}
+
+#c_body {
+    /*border: 1px solid blue;*/
+    min-height: 500px;
+    width: 80%;
+    margin: 0px auto;
+    padding-top: 15px;
+    padding-bottom: 15px;
+    background-color: rgba(128, 128, 128, 0.90);
+}
+
+h1, h3, p {
+    padding: 15px;
+    font-weight: bold;
+    color: white;
+}
+
+.sp {
+    background-color:#ffd800;
+}

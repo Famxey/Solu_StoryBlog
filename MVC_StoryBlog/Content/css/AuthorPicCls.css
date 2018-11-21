@@ -1,0 +1,52 @@
+﻿* {
+    margin: 0px;
+    padding: 0px;
+}
+
+body {
+    background-image: url(../../Images/AuthorIMG/A4.jpg);
+}
+
+#contents {
+    /*border: 1px solid rgba(147, 143, 143, 0.21);*/
+    background-image: url(../../Images/AuthorIMG/A4.jpg);
+    height: 100%;
+    width: 100%;
+}
+
+
+#frameContent dl {
+    float: left;
+    border: 3px solid rgba(147, 143, 143, 0.71);
+    background-color: rgba(187, 179, 179, 0.14);
+    margin: 33px;
+    height: 133.2px;
+}
+
+#picbox dl dd {
+}
+
+.cls {
+    color: rgba(52, 45, 45, 0.92);
+    text-align: center;
+    font-size: 10px;
+    font-weight: bold;
+}
+
+.clsdec {
+    color: rgb(128, 128, 128);
+    text-align: left;
+    font-size: 14px;
+    font-weight: bold;
+    padding: 5px;
+    overflow: hidden;
+}
+
+dl dt {
+    position: relative;
+}
+
+#frameContent {
+    height: auto;
+    width: 100%;
+}

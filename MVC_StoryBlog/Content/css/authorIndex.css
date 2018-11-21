@@ -1,0 +1,51 @@
+﻿* {
+    margin: 0px;
+    padding: 0px;
+}
+
+body {
+    background-image: url(../../Images/AuthorIMG/A5.jpg);
+}
+
+#content {
+    /*border: 1px solid red;*/
+    height: 600px;
+    width: 100%;
+}
+
+#c_body {
+    /*border: 1px solid green;*/
+    height: 530px;
+    width: 80%;
+    margin: 0px auto;
+    margin-top: 40px;
+}
+
+.info {
+    width: 90%;
+    border-bottom: 1px solid rgba(128, 128, 128, 0.71);
+    text-align: center;
+    padding: 5px;
+}
+
+    .info a {
+        text-decoration: none;
+        font-size: 16px;
+        color: gray;
+    }
+
+        .info a:hover {
+            color: rgba(47, 137, 167, 0.90);
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+        .info a img {
+            height: 16px;
+            width: 16px;
+        }
+
+#uAcco {
+    width: 80px;
+    display: none;
+}

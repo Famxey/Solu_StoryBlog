@@ -1,0 +1,32 @@
+﻿@model List<MVC_StoryBlog.Models.ArtHelper>
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>topArticle</title>
+    <link href="~/Content/css/topArticleS.css" rel="stylesheet" />
+
+</head>
+<body>
+
+    <ol>
+
+        @foreach (var item in Model)
+        {
+               
+            <li class="randartTop">
+                <a href="/home/SelectArt?id=@item.artNo " target="_top"  title="@item.Title" >@item.Title.Trim().Substring(0,5) ...</a><img src="~/Images/热图标.png" height="30" width="30" />
+            </li>  
+        }
+
+    </ol>
+
+
+</body>
+</html>

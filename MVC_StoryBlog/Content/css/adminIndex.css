@@ -1,0 +1,78 @@
+﻿* {
+    margin: 0px;
+    padding: 0px;
+}
+
+.info {
+    width: 90%;
+    border-bottom: 1px solid rgba(128, 128, 128, 0.71);
+    text-align: center;
+    padding: 5px;
+}
+
+    .info a {
+        text-decoration: none;
+        font-size: 16px;
+        color: gray;
+    }
+
+        .info a:hover {
+            color: rgba(47, 137, 167, 0.90);
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+        .info a img {
+            height: 16px;
+            width: 16px;
+        }
+
+#tops {
+    /*border: 1px solid red;*/
+    height: 100%;
+    width: 100%;
+    background-image: url(../../Images/bj_zhuce.jpg);
+    /*background-repeat:round;*/
+    position: relative;
+}
+
+    #tops p {
+        color: white;
+        padding-top: 20px;
+        text-align: center;
+        font-weight: bold;
+        font-size: 40px;
+        font-family:'Yu Gothic';
+    }
+
+
+    #tops a {
+        display: block;
+        color: white;
+        text-decoration: none;
+        position: absolute;
+        bottom: 0px;
+        right: 20px;
+        font-weight: bold;
+        font-size: 20px;
+    }
+
+        #tops a:hover {
+            color: red;
+            font-weight: bold;
+            font-size: 25px;
+        }
+
+#bottoms {
+    /*border: 1px solid red;*/
+    height: 40px;
+    width: 100%;
+    background-image: url(../../Images/bj_zhuce.jpg);
+    /*background-repeat:round;*/
+}
+
+    #bottoms h4 {
+        color: white;
+        padding-top: 10px;
+        text-align: center;
+    }

@@ -1,0 +1,77 @@
+﻿@model List<MVC_StoryBlog.Models.ArtHelper>
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Article</title>
+    <link href="~/Content/css/personalStyleM.css" rel="stylesheet" />
+    <link href="~/Content/themes/default/easyui.css" rel="stylesheet" />
+    <link href="~/Content/themes/icon.css" rel="stylesheet" />
+    <script src="~/Scripts/jquery-1.8.2.min.js"></script>
+    <script src="~/Scripts/jquery.easyui.min.js"></script>
+    <script src="~/Scripts/easyui-lang-zh_CN.js"></script>
+
+    <script type="text/javascript">
+
+        function Delete(ID) {
+            $.messager.confirm('确认对话框', '您确定要删除？', function (r) {
+                if (r) {
+
+                    url = "/PersonalBlog/ArtDel";
+
+                    paramenter = { id: ID };
+                    $.post(url, paramenter, function (data) {
+                        //alert("删除成功！");
+                        //刷新页面
+                        window.location.reload();
+                    })
+                }
+            });
+        }
+
+        function artidValue(ID) {
+
+            url = "/PersonalBlog/SelectArt";
+
+            paramenter = { id: ID };
+            $.post(url, paramenter, function (data) {
+                //alert("删除成功！");
+                //刷新页面
+                //window.location.reload();
+            })
+        }
+
+    </script>
+
+</head>
+<body>
+    <table id="atb" cellspacing="0">
+        <tr>
+            <th class="th2">标题</th>
+            <th class="th3">阅读量</th>
+            <th class="th3">评论量</th>
+            <th class="th4">操作</th>
+        </tr>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td class="th2">
+                    <a href="/home/SelectArt?id=@item.artNo " target="_top" >《@item.Title》</a>
+                </td>
+                <td class="th3">@item.artHot</td>
+                <td class="th3">@item.artComCnt</td>
+                <td class="th4">
+                    <a href="/PersonalBlog/ArtUpdate?id=@item.artNo" target="_top">编辑</a>丨<a href="#" onclick="Delete(@item.artNo)">删除</a></td>
+            </tr> 
+        }
+
+    </table>
+
+</body>
+</html>

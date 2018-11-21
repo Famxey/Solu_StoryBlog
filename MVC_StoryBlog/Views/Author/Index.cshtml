@@ -1,0 +1,99 @@
+﻿@{
+    ViewBag.Title = "作者信息页——因有事迹，才会浪漫！";
+}
+<link href="~/Content/css/authorIndex.css" rel="stylesheet" />
+<link href="~/Content/themes/default/easyui.css" rel="stylesheet" />
+<link href="~/Content/themes/icon.css" rel="stylesheet" />
+<script src="~/Scripts/jquery-1.8.2.min.js"></script>
+<script src="~/Scripts/jquery.easyui.min.js"></script>
+<script src="~/Scripts/easyui-lang-zh_CN.js"></script>
+
+@*框架*@
+<div id="content">
+    @*内容主题*@
+    <div id="c_body">
+
+        <div id="cc" class="easyui-layout" style="width: 100%; height: 100%">
+            <div data-options="region:'west',title:'@ViewBag.uAc',split:false" style="width: 110px;">
+                <p class="info">
+                    <a href="javascript:AddTabs('个人信息','/author/authorInfo?aAuthor=@ViewBag.uAc')">
+                        <img src="~/Images/icon/信息.png" />个人信息</a>
+                </p>
+                <p class="info">
+                    <a href="javascript:AddTabs('个人文章','/author/artInfo?aAuthor=@ViewBag.uAc')">
+                        <img src="~/Images/icon/书本_1.png" />个人文章</a>
+                </p>
+                <p class="info">
+                    <a href="javascript:AddTabs('个人相册','/author/picClsInfo?aAuthor=@ViewBag.uAc')">
+                        <img src="~/Images/icon/相册.png" />个人相册</a>
+                </p>
+
+                <p class="info">
+                    <a href="#" onclick="AttenUser()">
+                        <img src="~/Images/icon/heart-icon.png" />关注作者</a>
+                </p>
+                <form id="attenfrm">
+                    <input id="uAcco" name="attenUser" value="@ViewBag.uAc" />
+                </form>
+            </div>
+            <div data-options="region:'center',">
+                <div id="tt" class="easyui-tabs" fit="true">
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</div>
+
+<script type="text/javascript">
+
+    //加载时调用函数
+    $(function () {
+        var au = document.getElementById("uAcco").value;
+        AddTabs('个人信息', '/author/authorInfo?aAuthor=' + au);
+    });
+
+    function AddTabs(title, url) {
+
+        if (!$('#tt').tabs('exists', title)) {
+            $('#tt').tabs('add', {
+                title: title,
+                selected: true,
+                closable: true,
+                href: url,
+            });
+        } else {
+            !$('#tt').tabs('select', title)
+        }
+
+    }
+
+    function AttenUser() {
+
+        $('#attenfrm').form('submit', {
+            url: "/AttentionUser/Add",
+            onSubmit: function () {
+                // do some check    
+                // return false to prevent submit; 
+                return $(this).form('validate');
+            },
+            success: function (data) {
+                var result = eval('(' + data + ')');
+                if (result.ok) {
+                    //刷新页面
+                    $.messager.alert("温馨提示！", "关注成功！");
+
+                }
+                if (result.no) {
+                    $.messager.alert("温馨提示！", "您已经关注了该作者！");
+                }
+                if (result.dl) {
+                    $.messager.alert("温馨提示！", "请用户您登录成功后！再进行该操作！");
+                }
+            }
+        });
+
+    }
+
+</script>

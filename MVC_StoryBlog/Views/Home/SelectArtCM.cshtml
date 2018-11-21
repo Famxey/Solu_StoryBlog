@@ -1,0 +1,220 @@
+﻿@model List<MVC_StoryBlog.Models.artCMhelper>
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>SelectArtCM</title>
+    <link href="~/Content/themes/default/easyui.css" rel="stylesheet" />
+    <link href="~/Content/themes/icon.css" rel="stylesheet" />
+    <script src="~/Scripts/jquery-1.7.1.min.js"></script>
+    <script src="~/Scripts/jquery.easyui.min.js"></script>
+    <script src="~/Scripts/easyui-lang-zh_CN.js"></script>
+    <script type="text/javascript">
+
+        $(function () {
+
+            //读取属于当前文档的所有cookies
+            var allcookies = document.cookie;
+
+            //定义一个函数，用来读取特定的cookie值。
+            function getCookie(cookie_name) {
+                var allcookies = document.cookie;
+                var cookie_pos = allcookies.indexOf(cookie_name);   //索引的长度
+
+                // 如果找到了索引，就代表cookie存在，
+                // 反之，就说明不存在。
+                if (cookie_pos != -1) {
+                    // 把cookie_pos放在值的开始，只要给值加1即可。
+                    cookie_pos += cookie_name.length + 1;      //这里容易出问题，所以请大家参考的时候自己好好研究一下
+                    var cookie_end = allcookies.indexOf(";", cookie_pos);
+
+                    if (cookie_end == -1) {
+                        cookie_end = allcookies.length;
+                    }
+
+                    var value = unescape(allcookies.substring(cookie_pos, cookie_end));         //这里就可以得到你想要的cookie的值了。。。
+                }
+                return value;
+            }
+
+            var cookie_val = getCookie("Accout");
+
+            $("#uAccout").val(cookie_val);
+        });
+
+
+        function CM(ID) {
+            $('#dd').dialog('open').dialog('setTitle', "反表评论");
+            $('#artid').val(ID);
+        }
+
+        function btnClose() {
+
+            $('#dd').dialog('close');
+
+        }
+
+        function btnOK() {
+
+            $('#comfrm').form('submit', {
+                url: "/Comment/AddArtcm",
+                onSubmit: function () {
+                    // do some check    
+                    // return false to prevent submit; 
+                    return $(this).form('validate');
+                },
+                success: function (data) {
+                    var result = eval('(' + data + ')');
+                    if (result.ok) {
+                        //刷新页面
+                        //$.messager.alert("提示！", "修改成功！");
+                        window.location.reload();
+                    }
+
+                }
+            });
+
+        }
+
+    </script>
+    <style type="text/css">
+        * {
+            margin: 0px;
+            padding: 0px;
+        }
+
+        #flexbtn {
+            /*float:right;*/
+            /*border: 1px solid black;*/
+            width: 100px;
+            position: fixed;
+            bottom: 0%;
+            right: 0%;
+            background-color: rgba(187, 179, 179, 0.14);
+        }
+
+            #flexbtn a {
+                width: 100px;
+                height: 24px;
+                margin-top: 4px;
+                margin-bottom: 4px;
+                margin-left: -8px;
+            }
+
+        #selartcon {
+            border: 1px solid green;
+            height: 760px;
+        }
+
+        #cmcon {
+            /*border: 1px solid red;*/
+            height: 300px;
+        }
+
+        #cmFrame {
+            border: 1px solid #808080;
+            height: 300px;
+        }
+
+        #frameContent {
+            overflow: hidden;
+            height: 246px;
+            /*border: 1px solid red;*/
+        }
+
+            #frameContent p {
+                padding-top: 10px;
+                padding-bottom: 10px;
+                margin-left: 30px;
+                margin-right: 30px;
+                border-bottom: 1px solid #808080;
+                height: 20px;
+                line-height: 20px;
+                /*border: 1px solid black;*/
+            }
+                #frameContent p a {
+                    text-decoration:none;
+                }
+
+        .sptime {
+            font-size: 6px;
+            color: rgba(123, 178, 202, 0.80);
+        }
+
+        .spnick {
+            color: rgba(63, 99, 199, 0.95);
+        }
+    </style>
+</head>
+<body>
+
+    <div id="flexbtn">
+        <a id="btnPicCls" class="easyui-linkbutton" onclick="CM('@ViewBag.ID')">评论</a>
+    </div>
+    <h3>评论专区</h3>
+    <div id="frameContent">
+        @foreach (var item in Model)
+        {
+            <p>
+                <a href="/author/index?uAc=@item.uAccount" target="_top"><span class="spnick">@item.NickName </span></a>： @item.artCmContent
+                <span class="sptime">&nbsp;(@item.artCmCreateTime)</span>
+            </p>
+        }
+    </div>
+    <div id="pages" style="font-size: 12px; width: auto; line-height: 40px; text-align: center;">
+        分页 页数
+    </div>
+    <script language="javascript">
+        var obj = document.getElementById("frameContent");  //获取内容层
+        var pages = document.getElementById("pages");         //获取翻页层
+        var pgindex = 1;                                      //当前页
+        window.onload = function ()                             //重写窗体加载的事件
+        {
+            var allpages = Math.ceil(parseInt(obj.scrollHeight) / parseInt(obj.offsetHeight));//获取页面数量
+            pages.innerHTML = "<b>共" + allpages + "页</b> ";     //输出页面数量
+            for (var i = 1; i <= allpages; i++) {
+                pages.innerHTML += "<a href=\"javascript:showPage('" + i + "');\">第" + i + "页</a> ";
+                //循环输出第几页
+            }
+            pages.innerHTML += " <a href=\"javascript:gotopage('-1');\">上一页</a>  <a href=\"javascript:gotopage('1');\">下一页</a>"
+        }
+        function gotopage(value) {
+            try {
+                value == "-1" ? showPage(pgindex - 1) : showPage(pgindex + 1);
+            } catch (e) {
+
+            }
+        }
+        function showPage(pageINdex) {
+
+            obj.scrollTop = (pageINdex - 1) * parseInt(obj.offsetHeight);                                                                  //根据高度，输出指定的页
+            pgindex = pageINdex;
+        }
+    </script>
+
+
+    <div id="dd" class="easyui-dialog" style="width: 245px; height: 210px;"
+        data-options="iconCls:'icon-add',resizable:true,modal:true,closed:true,buttons:'#bb',resizable:false,">
+        <form id="comfrm">
+            <p>
+                <input id="uAccout" name="uAccout" style="display: none" />
+                <input type="text" id="artid" name="artID" style="display: none" />
+            </p>
+            <p style="margin: 10px;">
+                <textarea id="comm" name="artCmContent" style="height: 100px; width: 210px;"> </textarea>
+            </p>
+        </form>
+    </div>
+
+    <div id="bb">
+        <a href="#" class="easyui-linkbutton" onclick="btnOK()">确认</a>
+        <a href="#" class="easyui-linkbutton" onclick="btnClose()">关闭</a>
+    </div>
+</body>
+</html>

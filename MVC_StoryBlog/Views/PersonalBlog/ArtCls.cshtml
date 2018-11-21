@@ -1,0 +1,113 @@
+﻿@model List<MVC_StoryBlog.Models.ArtClsHelper>
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Article</title>
+    <link href="~/Content/css/personalStyleM.css" rel="stylesheet" />
+    <link href="~/Content/themes/default/easyui.css" rel="stylesheet" />
+    <link href="~/Content/themes/icon.css" rel="stylesheet" />
+    <script src="~/Scripts/jquery-1.8.2.min.js"></script>
+    <script src="~/Scripts/jquery.easyui.min.js"></script>
+    <script src="~/Scripts/easyui-lang-zh_CN.js"></script>
+
+    <script type="text/javascript">
+        function Delete(ID) {
+
+            $.messager.confirm('确认对话框', '您确定要删除？', function (r) {
+                if (r) {
+
+                    url = "/PersonalBlog/ArtClsDel";
+                    paramenter = { id: ID };
+                    $.post(url, paramenter, function (data) {
+                        //alert("删除成功！");
+                        //刷新页面
+                        window.location.reload();
+                    })
+                }
+            });
+
+        }
+
+        function Update(ID, artCls) {
+            $('#dd').dialog('open').dialog('setTitle', "修改文章类别");
+            $('#cls').val(artCls);
+            $('#clsid').val(ID);
+        }
+
+        function btnClose() {
+
+            $('#dd').dialog('close');
+
+        }
+
+        function btnOK() {
+
+            $('#artfrm').form('submit', {
+                url: "/PersonalBlog/ArtClsUpdate",
+                onSubmit: function () {
+                    // do some check    
+                    // return false to prevent submit; 
+                    return $(this).form('validate');
+                },
+                success: function (data) {
+                    var result = eval('(' + data + ')');
+                    if (result.ok) {
+                        //刷新页面
+                        //$.messager.alert("提示！", "修改成功！");
+                        window.location.reload();
+                    }
+
+                }
+            });
+
+        }
+
+    </script>
+
+</head>
+<body>
+    <table id="atb" cellspacing="0">
+        <tr>
+
+            <th class="th2">类名</th>
+            <th class="th4">操作</th>
+        </tr>
+        @foreach (var item in Model)
+        {
+            <tr>
+
+                <td class="th2">
+                    <a href="#">@item.artClsTitle</a>
+                </td>
+                <td class="th4">
+                    <a href="#" onclick="Update(@item.ID,'@item.artClsTitle')">修改</a>丨<a href="#" onclick="Delete(@item.ID)">删除</a></td>
+            </tr> 
+        }
+
+    </table>
+
+    <div id="dd" class="easyui-dialog" style="width: 225px; height: 120px;"
+        data-options="iconCls:'icon-edit',resizable:true,modal:true,closed:true,buttons:'#bb',resizable:false,">
+        <form id="artfrm">
+            <p>
+                <input type="text" id="clsid" name="ID" style="display: none" />
+            </p>
+            <p style="margin: 10px;">
+                类名：<input id="cls" name="artClsTitle" class="easyui-validatebox" data-options="required:true,validType:'minLength[5]'">
+            </p>
+        </form>
+    </div>
+
+    <div id="bb">
+        <a href="#" class="easyui-linkbutton" onclick="btnOK()">保存</a>
+        <a href="#" class="easyui-linkbutton" onclick="btnClose()">关闭</a>
+    </div>
+</body>
+</html>

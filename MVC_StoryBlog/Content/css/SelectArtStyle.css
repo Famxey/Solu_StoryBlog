@@ -1,0 +1,202 @@
+﻿* {
+    margin: 0px;
+    padding: 0px;
+}
+
+#tops {
+    /*border: 1px solid red;*/
+    height: 40px;
+    width: 100%;
+    /*background-image: url(../../Images/bj_zhuce.jpg);*/
+    position: fixed;
+    background-color: rgba(147, 143, 143, 0.21);
+}
+
+
+
+#t_con {
+    /*border: 1px solid blue;*/
+    height: 39px;
+    width: 100%;
+    margin: 0px auto;
+}
+
+    #t_con:hover {
+        /*border: 1px solid blue;*/
+        height: 39px;
+        width: 100%;
+        /*background-color: rgba(128, 128, 128, 0.21);*/
+        background-image: url(../../Images/bj_zhuce.jpg);
+        margin: 0px auto;
+    }
+
+    #t_con ul li {
+        float: left;
+        font-size: 25px;
+        font-weight: bold;
+        text-align: center;
+        line-height: 39px;
+        list-style: none;
+        height: 48px;
+        width: 23%;
+    }
+
+        #t_con ul li a {
+            text-decoration: none;
+            color: black;
+        }
+
+            #t_con ul li a:hover {
+                color: white;
+            }
+
+#lr {
+    float: right;
+    line-height: 39px;
+}
+
+    #lr a {
+        text-decoration: none;
+    }
+
+        #lr a:hover {
+            color: orange;
+        }
+
+#contents {
+    /*border: 1px solid black;*/
+    height: auto;
+    width: 100%;
+}
+
+#banner {
+    /*margin-top: 39px;*/
+    /*border: 1px solid cyan;*/
+    height: 280px;
+    width: 100%;
+    background-image: url(../../Images/bgpic2.jpg);
+}
+
+#con {
+    /*margin-top: 39px;*/
+    /*border: 1px solid cyan;*/
+    height: 1120px;
+    width: 100%;
+    margin-top: -20px;
+}
+
+#artcon {
+    /*margin-top: 39px;*/
+    /*border: 1px solid black;*/
+    height: auto;
+    width: 84%;
+    margin: 0px auto;
+    background-color: rgba(93, 172, 198, 0.12);
+}
+
+
+
+
+#bottoms {
+    /*border: 1px solid red;*/
+    height: 40px;
+    width: 100%;
+    background-image: url(../../Images/bj_zhuce.jpg);
+}
+
+    #bottoms h4 {
+        color: white;
+        padding-top: 10px;
+        text-align: center;
+    }
+
+#user {
+    display: none;
+}
+
+#pic {
+    border: 1px solid black;
+    position: relative;
+    left: 100px;
+    top: -70px;
+    border-radius: 70px;
+    /*z-index: 1;*/
+}
+
+.font {
+    font-weight: bold;
+    font-size: 18px;
+    padding-left: 20px;
+}
+
+.yan0, .yan2, .yan4 {
+    margin-top: 20px;
+    color: rgba(17, 176, 30, 0.91);
+}
+
+#submr {
+    margin-top: 20px;
+    margin-left: 90%;
+    height: 20px;
+    width: 72px;
+    /*border:1px solid white;*/
+}
+
+    #submr:hover {
+        background-color: rgba(78, 166, 194, 0.21);
+    }
+
+#artAuthority {
+    margin-top: 10px;
+    margin-left: 90%;
+    height: 20px;
+    width: 72px;
+}
+
+#txta {
+    height: 540px;
+    width: 96%;
+    resize: none;
+}
+
+#artclsAdd {
+    height: 26px;
+    font-size: 20px;
+    font-weight: bold;
+    line-height: 20px;
+    background-color: white;
+    border: none;
+}
+
+    #artclsAdd:hover {
+        height: 36px;
+        font-size: 30px;
+        font-weight: bold;
+        line-height: 30px;
+        background-color: white;
+        border: none;
+        color: green;
+    }
+
+#htit {
+    text-align: center;
+    padding: 10px;
+}
+
+#p2 {
+    text-align: right;
+    color: gray;
+}
+
+#p3 {
+    padding-top: 20px;
+    /*color: black;*/
+    padding-left: 20px;
+    padding-right: 20px;
+    /*border: 1px solid red;*/
+}
+
+#selartcon {
+    /*border: 1px solid red;*/
+    height: auto;
+}

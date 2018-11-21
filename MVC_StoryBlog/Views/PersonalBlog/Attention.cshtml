@@ -1,0 +1,62 @@
+﻿@model List<MVC_StoryBlog.Models.AttenHelper>
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>关注管理</title>
+    <link href="~/Content/css/personalStyleM.css" rel="stylesheet" />
+    <link href="~/Content/themes/default/easyui.css" rel="stylesheet" />
+    <link href="~/Content/themes/icon.css" rel="stylesheet" />
+    <script src="~/Scripts/jquery-1.8.2.min.js"></script>
+    <script src="~/Scripts/jquery.easyui.min.js"></script>
+    <script src="~/Scripts/easyui-lang-zh_CN.js"></script>
+
+    <script type="text/javascript">
+        function Delete(ID) {
+
+            $.messager.confirm('确认对话框', '您确定要取消关注该作者？', function (r) {
+                if (r) {
+                    url = "/PersonalBlog/AttentionDel";
+                    paramenter = { id: ID };
+                    $.post(url, paramenter, function (data) {
+                        //alert("删除成功！");
+                        //刷新页面
+                        window.location.reload();
+                    })
+                }
+            });
+
+        }
+
+    </script>
+
+</head>
+<body>
+    <table id="atb" cellspacing="0">
+        <tr>
+
+            <th class="th2">作者</th>
+            <th class="th4">操作</th>
+        </tr>
+        @foreach (var item in Model)
+        {
+            <tr>
+
+                <td class="th2">
+                    <a href="/author/index?uAc=@item.attenUser" target="_top">@item.NickName</a>
+                </td>
+                <td class="th4">
+                    <a href="#" onclick="Delete(@item.ID)">取消关注</a></td>
+            </tr> 
+        }
+
+    </table>
+
+</body>
+</html>

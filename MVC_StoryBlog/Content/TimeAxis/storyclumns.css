@@ -1,0 +1,101 @@
+﻿
+* {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-size: 14px;
+    font-family: "微软雅黑";
+    background: url("../../Images/stroyclums.jpg")top no-repeat;
+    background-attachment: fixed;
+    z-index: 0;
+    background-size: 100%;
+}
+
+.box {
+    width: 960px;
+    height: 800px;
+    margin: 100px auto;
+    position: relative;
+    z-index: 1;
+}
+
+    .box .timeline {
+        width: 60px;
+        height: auto;
+        position: absolute;
+        top: 0px;
+        left: 80px;
+        /*border-right: 2px solid #5d7895;*/
+        /*border: 2px solid red;*/
+    }
+/**/
+/*.timeline .timeline_t {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    border: 1px solid #fff;
+    background: url("../../Images/100.png")no-repeat;
+    background-size: 100%;
+}*/
+
+.timeline .nextbox {
+    width: auto;
+    height: auto;
+    position: absolute;
+    top: 0px;
+    left: 60px;
+    /*border: 1px solid black;*/
+    border-left: 2px solid #5d7895;
+}
+
+.a {
+    width: 600px;
+    height: auto;
+    background: #fff;
+    border-radius: 6px;
+    margin-top: 20px;
+    font-size: 16px;
+    line-height: 20px;
+    text-indent: 20px;
+    word-break: break-all;
+    position: relative;
+    left: 6px;
+    padding: 5px;
+}
+
+    .a .b {
+        width: 6px;
+        height: 6px;
+        border-radius: 50%;
+        border: 2px solid #fff;
+        background: #9DCFE1;
+        position: absolute;
+        top: 35px;
+        left: -10px;
+    }
+
+#time {
+    font-size: 20px;
+    color: #ababab;
+}
+
+#hour {
+    font-size: 12px;
+    color: #92CADE;
+}
+
+#pages {
+    position: relative;
+    top: -30px;
+}
+
+.authorP {
+    font-size: 14px;
+    color: #92CADE;
+    text-align:center;
+}
+.author {
+    text-decoration:none;
+}

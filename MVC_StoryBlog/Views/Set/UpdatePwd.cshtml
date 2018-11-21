@@ -1,0 +1,46 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title></title>
+    <link href="~/Content/css/setStyle.css" rel="stylesheet" />
+    <style type="text/css">
+        .yan4 {
+            margin-left: 8px;
+        }
+
+        .y5 {
+            padding-top: 10px;
+        }
+
+        h3 {
+            background-color: rgba(187, 165, 165, 0.00);
+        }
+    </style>
+</head>
+<body>
+    <div id="con1">
+        <p id="pp">修改密码</p>
+        <h3 style="background-color: rgba(79, 32, 32, 0.00); color: red;">@ViewBag.Info2</h3>
+        <h3 style="background-color: rgba(79, 32, 32, 0.00); color: green;">@ViewBag.Info1</h3>
+
+        @using (Html.BeginForm("updatepwd", "set", FormMethod.Post))
+        {
+            <p class="yan4 y5">原密码</p>
+            <p class="yan4">@Html.Password("oldpwd")</p>
+            <p class="yan4 y5">新密码</p>
+            <p class="yan4">@Html.Password("pwd")</p>
+            <p class="yan4 y5">确认新密码</p>
+            <p class="yan4">@Html.Password("repwd")</p>
+            <p class="yan4 y5">
+                <input type="submit" value="提交" />
+            </p>    
+        }
+    </div>
+</body>
+</html>

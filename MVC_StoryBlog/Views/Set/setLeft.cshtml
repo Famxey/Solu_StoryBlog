@@ -1,0 +1,53 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title></title>
+    <style type="text/css">
+        * {
+            margin: 0px;
+            padding: 0px;
+        }
+
+        #con {
+            border: 2px solid gray;
+            height: 216px;
+            width: 200px;
+            margin: 0px auto;
+            background-color: cadetblue;
+        }
+
+        a {
+            margin-top: 10px;
+            display: block;
+            height: 30px;
+            width: 200px;
+            text-align: center;
+            font-size: 30px;
+            font-weight: bold;
+            color: cyan;
+            text-decoration: none;
+            padding-top: 5px;
+            padding-bottom: 5px;
+        }
+
+            a:hover {
+                color: white;
+                background-color: gray;
+            }
+    </style>
+</head>
+<body style="background-color: rgba(255, 255, 255, 0.00)">
+    <div id="con">
+        <a href="/set/UserInfo" target="setRight">基本信息</a>
+        <a href="/set/UploadPic" target="setRight">上传头像</a>
+        <a href="/set/UpdateInfo" target="setRight">修改资料</a>
+        <a href="/set/UpdatePwd" target="setRight">修改密码</a>
+    </div>
+</body>
+</html>

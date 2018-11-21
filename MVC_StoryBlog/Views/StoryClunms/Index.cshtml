@@ -1,0 +1,66 @@
+﻿@model List<MVC_StoryBlog.Models.ArtHelper>
+
+@{
+    ViewBag.Title = "故事栏——因有事迹，才会浪漫！";
+}
+
+<link href="~/Content/TimeAxis/storyclumns.css" rel="stylesheet" />
+
+<div class="box" id="frameContent" style="overflow: hidden">
+    <!--时光轴线-->
+    <div class="timeline">
+        <div class="nextbox">
+            @foreach (var item in Model)
+            {       
+                <div class='a'>
+                    <div class='b'>
+                    </div>
+                    <span id='time'>@item.artCreateTime.ToShortDateString()</span>
+                    &nbsp;&nbsp;
+                    <span id='hour'>@item.artCreateTime.ToShortTimeString()</span>
+                    <div style='padding: 1px'>
+                        <p style="text-align: center;">
+                            <a href="/home/SelectArt?id=@item.artNo" style="text-decoration:none;color: black;font-weight:bold;"  >@item.Title</a>
+                        </p>
+                        <p class="authorP">作者：<a href="/author/index?uAc=@item.uAccount" class="author">@item.NickName</a></p>
+                        <p>
+                            摘要：<a href="/home/SelectArt?id=@item.artNo"  style="text-decoration:none;color:gray;" >
+                                @item.artDigest</a>
+                        </p>
+                    </div>
+                </div>   
+            }
+        </div>
+    </div>
+</div>
+<div id="pages" style="font-size: 12px; width: auto; line-height: 40px; text-align: center;">
+    分页 页数
+</div>
+<script language="javascript">
+    var obj = document.getElementById("frameContent");  //获取内容层
+    var pages = document.getElementById("pages");         //获取翻页层
+    var pgindex = 1;                                      //当前页
+    window.onload = function ()                             //重写窗体加载的事件
+    {
+        var allpages = Math.ceil(parseInt(obj.scrollHeight) / parseInt(obj.offsetHeight));//获取页面数量
+        pages.innerHTML = "<b>共" + allpages + "页</b> ";     //输出页面数量
+        for (var i = 1; i <= allpages; i++) {
+            pages.innerHTML += "<a href=\"javascript:showPage('" + i + "');\">第" + i + "页</a> ";
+            //循环输出第几页
+        }
+        pages.innerHTML += " <a href=\"javascript:gotopage('-1');\">上一页</a>  <a href=\"javascript:gotopage('1');\">下一页</a>"
+    }
+    function gotopage(value) {
+        try {
+            value == "-1" ? showPage(pgindex - 1) : showPage(pgindex + 1);
+        } catch (e) {
+
+        }
+    }
+    function showPage(pageINdex) {
+
+        obj.scrollTop = (pageINdex - 1) * parseInt(obj.offsetHeight);                                                                  //根据高度，输出指定的页
+        pgindex = pageINdex;
+    }
+</script>
+<script src="~/Content/TimeAxis/js/jquery-1.11.2.min.js"></script>

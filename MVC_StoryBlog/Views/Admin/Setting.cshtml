@@ -1,0 +1,82 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Setting</title>
+</head>
+<body>
+    <style type="text/css">
+        #EditPwd {
+            text-decoration: none;
+            font-size: 25px;
+           background-color:rgba(0, 0, 0, 0.24);
+           border:0.5px solid rgba(0, 255, 255, 0.85);
+           width:110px;
+            display:block;
+            margin:20px;
+            
+        }
+    </style>
+    <script type="text/javascript">
+
+        function EditPwd() {
+            $('#dd').dialog('open').dialog('setTitle', "修改密码");
+
+        }
+
+        function EditPwdClose() {
+            $('#dd').dialog('close');
+        }
+
+        function btnOK() {
+            $('#ff').form('submit', {
+                url: '/admin/setting',
+                onSubmit: function () {
+                    // do some check    
+                    // return false to prevent submit;    
+                },
+                success: function (data) {
+                    var result = eval('(' + data + ')');
+                    if (result.success) {
+                        alert("修改成功！");
+                        $('#dd').dialog('close');
+                    }
+                }
+            });
+        }
+
+    </script>
+
+    <div><a href="#" onclick="EditPwd()" id="EditPwd" class="easyui-linkbutton" data-options="iconCls:'icon-edit'">修改密码</a></div>
+
+    <div id="dd" class="easyui-dialog" style="width: 250px; height: 250px;"
+        data-options="iconCls:'icon-edit',resizable:true,modal:true,closed:true,buttons:'#bb',">
+        <form id="ff" method="post">
+            <p class="yan4 y5">原密码</p>
+            <p class="yan4">
+                <input type="password" id="oldapwd" name="oldapwd" />
+            </p>
+            <p class="yan4 y5">新密码</p>
+            <p class="yan4">
+                <input type="password" id="apwd" name="apwd" />
+            </p>
+            <p class="yan4 y5">确认新密码</p>
+            <p class="yan4">
+                <input type="password" id="reapwd" name="reapwd" />
+            </p>
+        </form>
+    </div>
+
+    <div id="bb">
+        <a href="#" class="easyui-linkbutton" onclick="btnOK()">保存</a>
+        <a href="#" class="easyui-linkbutton" onclick="EditPwdClose()">关闭</a>
+    </div>
+
+
+</body>
+</html>

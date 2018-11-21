@@ -1,0 +1,106 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>UserManage</title>
+</head>
+<body>
+    <script type="text/javascript">
+
+        $('#dgUser').datagrid({
+            fit: true,
+            fitColumns: true,
+            remoteSort: false,
+            pagination: true,
+            pageSize: 5,
+            pageList: [5, 10, 20],
+            url: '/admin/UserManageSel',
+            columns: [[
+                { align: 'center', checkbox: true, field: 'ck' },
+                { field: 'ID', title: '编号', align: 'center', sortable: true, },
+                { field: 'Account', title: '账号', width: 100, align: 'center', sortable: true, },
+                { field: 'NickName', title: '昵称', width: 100, align: 'center' },
+                { field: 'Picture', title: '头像', width: 100, align: 'center', formatter: Pic },
+                { field: 'Phone', title: '电话', width: 100, align: 'center' },
+                { field: 'Gender', title: '性别',  align: 'center' },
+                { field: 'Age', title: '年龄', width: 100, align: 'center', sortable: true, },
+                { field: 'BirthdayA', title: '生日', width: 100, align: 'center' },
+                { field: 'Describe', title: '个人描述', width: 100, align: 'center' },
+                { field: 'Introduce', title: '自我介绍', width: 100, align: 'center' },
+                { field: 'LoginTimeA', title: '登录时间', width: 100, align: 'center', sortable: true, },
+                { field: 'CreateTimeA', title: '注册时间', width: 100, align: 'center', sortable: true, },
+            ]],
+            toolbar: '#tb'
+        });
+
+        function Pic(value, row, index) {
+            return "<img height='80' width='80' src='" + value + "' />";
+        }
+
+
+        function Remove() {
+            var rows = $('#dgUser').datagrid('getSelections');
+
+            if (rows.length > 0) {
+
+                if (confirm("确认删除？")) {
+                    var parm;
+                    $.each(rows, function (i, n) {
+                        if (i == 0) {
+                            parm = "ID=" + n.ID;
+                        }
+                        else {
+                            parm += "&ID=" + n.ID;
+
+                        }
+                    });
+
+                    $.ajax({
+                        url: '/admin/UserManageDel',
+                        data: parm,
+                        type: 'post',
+                        success: function (date) {
+                            if (date == "OK") {
+                                alert("操作成功！");
+                                $('#dgUser').datagrid('reload');
+                                $('#dgUser').datagrid('clearSelections');
+                            }
+                        }
+                    });
+
+                }
+
+            } else {
+                alert("请选择数据，再操作！");
+            }
+
+
+        }
+
+
+        function Search() {
+
+            $('#dgUser').datagrid('load', { Account: $('#SER').val() });
+
+        }
+
+
+    </script>
+
+    <table id="dgUser"></table>
+
+
+
+    <div id="tb">
+        <a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-remove',plain:true" onclick="Remove()" title="选择用户，点击删除"></a>
+        <input class="easyui-textbox" data-options="iconCls:'icon-search'" style="width: 150px" id="SER" />
+        <a href="#" class="easyui-linkbutton" style="width: 60px" data-options="iconCls:'icon-search',plain:true" onclick="Search()" title="在输入框里，输入用户账号或昵称，点击进行搜索"></a>
+    </div>
+
+</body>
+</html>

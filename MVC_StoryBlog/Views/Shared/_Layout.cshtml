@@ -1,0 +1,78 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title>
+    @Styles.Render("~/Content/css")
+    @Styles.Render("~/Content/css/LayoutStyle.css")
+    @Scripts.Render("~/bundles/modernizr")
+    @Scripts.Render("~/bundles/jquery")
+    @RenderSection("scripts", required: false)
+    <script type="text/javascript">
+        $(function () {
+
+            //读取属于当前文档的所有cookies
+            var allcookies = document.cookie;
+
+            //定义一个函数，用来读取特定的cookie值。
+            function getCookie(cookie_name) {
+                var allcookies = document.cookie;
+                var cookie_pos = allcookies.indexOf(cookie_name);   //索引的长度
+
+                // 如果找到了索引，就代表cookie存在，
+                // 反之，就说明不存在。
+                if (cookie_pos != -1) {
+                    // 把cookie_pos放在值的开始，只要给值加1即可。
+                    cookie_pos += cookie_name.length + 1;      //这里容易出问题，所以请大家参考的时候自己好好研究一下
+                    var cookie_end = allcookies.indexOf(";", cookie_pos);
+
+                    if (cookie_end == -1) {
+                        cookie_end = allcookies.length;
+                    }
+
+                    var value = unescape(allcookies.substring(cookie_pos, cookie_end));         //这里就可以得到你想要的cookie的值了。。。
+                }
+                return value;
+            }
+
+
+            var cookie_val = getCookie("User");
+
+            $("#user").val(cookie_val);
+
+            var user = document.getElementById("user").value;
+
+            if (user != "") {
+                var zx = "注销";
+                document.getElementById("register").innerHTML = zx;
+                document.getElementById("login").innerHTML = user;
+                document.getElementById("login").href = "/set/index";
+                document.getElementById("register").href = "/login/Index";
+                document.getElementById("personal").href = "/personalblog/Index";
+            }
+
+        });
+    </script>
+</head>
+<body>
+    <div id="tops">
+        <div id="t_con">
+            <ul>
+                <li><a href="/home">首页</a></li>
+                <li><a href="/storyClunms/Index">故事栏</a></li>
+                <li><a href="/picturewall/Index">照片墙</a></li>
+                <li><a id="personal" href="/login/Index?flag=per">个人中心</a></li>
+                <li><a href="/home/Contact">联系我们</a></li>
+            </ul>
+            <p id="lr">
+                <input id="user" /><span><a id="login" href="/login/index">登录</a></span>丨<span><a id="register" href="/register/index">注册</a></span>
+            </p>
+        </div>
+    </div>
+    @RenderBody()
+    <div id="bottoms">
+        <h4>Copyright (c) StoryBlog . All Rights Reserved .</h4>
+    </div>
+</body>
+</html>

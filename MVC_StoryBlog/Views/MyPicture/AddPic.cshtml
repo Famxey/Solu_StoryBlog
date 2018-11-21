@@ -1,0 +1,81 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>AddPicCls</title>
+    <link href="~/Content/themes/default/easyui.css" rel="stylesheet" />
+    <link href="~/Content/themes/icon.css" rel="stylesheet" />
+    <script src="~/Scripts/jquery-1.7.1.min.js"></script>
+    <script src="~/Scripts/jquery.easyui.min.js"></script>
+    <script src="~/Scripts/easyui-lang-zh_CN.js"></script>
+</head>
+<body>
+    <style type="text/css">
+        * {
+            margin: 0px;
+            padding: 0px;
+        }
+
+        #clsbox {
+            margin-left: 40px;
+        }
+
+        .y5 {
+            color: #808080;
+            font-size: 18px;
+            font-weight: bold;
+            margin-left: -10px;
+            margin-top: 15px;
+        }
+
+        #sub {
+            padding-left: 240px;
+        }
+
+        #subm {
+            width: 70px;
+            height: 20px;
+            font-weight: bold;
+        }
+
+        h4 {
+            color: red;
+        }
+    </style>
+
+    <div id="clsbox">
+        <h4>@ViewBag.cg1</h4>
+        @using (Html.BeginForm("AddPic", "mypicture", FormMethod.Post, FormMethod.Post, new { enctype = "multipart/form-data" }))
+        {
+            <p class="yan4 y5">照片名称</p>
+            <p class="yan4">
+                <input class="easyui-validatebox" type="text" id="Name" name="Name" required="true" validtype="length[2,12]" />
+            </p> 
+            <p class="yan4 y5">相册</p>                                            
+            <p class="yan4">
+                <input id="picClsTitle" name="picClsTitle"  value="--请选择--"/>
+            </p>                      
+            <p class="yan4 y5">照片描述</p>            
+            <p class="yan4">@Html.TextArea("picDescribe", null, 8, 40, null)</p>
+            
+            <p class="yan4 y5">上传照片</p>            
+            <input style="width: 180px;" type="file" name="ImgFile" id="ImgFile" class="easyui-validatebox" required="true" />
+            <p class="yan4 y5" id="sub">
+                <input id="subm" type="submit" value="添加" />
+            </p>    
+        }
+    </div>
+
+    <script type="text/javascript">
+        $('#picClsTitle').combobox({
+            url: '/mypicture/SelectPicCls',
+            valueField: 'ID',
+            textField: 'picClsTitle'
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,43 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>AuthorInfo</title>
+</head>
+<body>
+    <link href="~/Content/css/AuthorInfo.css" rel="stylesheet" />
+    <style type="text/css">
+        #nick {
+            padding: 15px;
+            margin: 20px;
+            color: #808080;
+        }
+
+        .authorI {
+            margin-left: 30px;
+            margin-top:20px;
+        }
+        .fo {
+            font-weight:bold;
+            color: #808080;
+        }
+    </style>
+    <div id="aicontent">
+        <div id="con">
+            <h1 id="nick">@ViewBag.nikename</h1>
+            <dl>
+                <dt class="authorI">
+                    <img id="pic" src="@ViewBag.pic"  width="140" height="140" /></dt>
+                <dd class="authorI"><span class="fo">性别</span> ：@ViewBag.gender</dd>
+                <dd class="authorI"><span class="fo">自我介绍</span>：@ViewBag.describe</dd>
+                <dd class="authorI"><span class="fo">个人描述</span>：@ViewBag.introduce</dd>
+            </dl>
+        </div>
+    </div>
+</body>
+</html>

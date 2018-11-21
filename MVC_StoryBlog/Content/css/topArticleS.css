@@ -1,0 +1,26 @@
+﻿* {
+    margin: 0px;
+    padding: 0px;
+}
+
+.randartTop {
+    /*border: 1px solid rgba(128, 128, 128, 0.60);*/
+    height: 40px;
+    line-height: 40px;
+    text-align: left;
+    margin-left: 25%;
+    
+}
+
+
+a {
+    text-decoration: none;
+    color: #151212;
+}
+
+    a:hover {
+        color: rgba(239, 35, 35, 0.48);
+        font-weight: bold;
+        text-decoration: underline;
+        width: 160px;
+    }

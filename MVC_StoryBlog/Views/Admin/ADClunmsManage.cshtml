@@ -1,0 +1,210 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>ADClunmsManage</title>
+</head>
+<body>
+    <script type="text/javascript">
+
+        $('#dgADC').datagrid({
+            fit: true,
+            fitColumns: true,
+            remoteSort: false,
+            pagination: true,
+            pageSize: 2,
+            pageList: [2, 5, 15],
+            url: '/admin/ADClunmsManageSel',
+            columns: [[
+                { align: 'center', checkbox: true, field: 'ck' },
+                { field: 'ID', title: '编号', align: 'center', sortable: true, },
+                { field: 'adPhoto', title: '广告照片', align: 'center', formatter: adcPicture },
+                { field: 'adCompany', title: '所属公司', align: 'center', sortable: true },
+                { field: 'adCompanyTel', title: '联系电话', align: 'center', sortable: true },
+                { field: 'adCreateTimeA', title: '编辑时间', align: 'center', sortable: true },
+                { field: 'adRemarks', title: '备注描述', width: 100, align: 'center' },
+                { field: 'adURL', title: '广告链接', align: 'center' },
+            ]],
+            toolbar: '#tbADC'
+        });
+
+        function adcPicture(value, row, index) {
+            return "<img height='196' width='440' src='" + value + "' />";
+        }
+
+
+        //申明全局变量URL
+        var adcUrl;
+
+        //添加操作
+        function adcAdd() {
+            $('#ddADC').dialog('open').dialog('setTitle', "添加广告");
+            $('#ADCfrm').form('clear');
+            adcUrl = '/admin/ADClunmsManageAdd';
+        }
+
+        //修改操作
+        function adcEdit() {
+            var row = $('#dgADC').datagrid('getSelected');
+            if (row != null) {
+
+                $('#ADCfrm').form('load', {
+                    adCompany: row.adCompany,
+                    adRemarks: row.adRemarks,
+                    adURL: row.adURL,
+                    adCompanyTel: row.adCompanyTel
+                });
+
+                $('#ddADC').dialog('open').dialog('setTitle', "修改广告");
+                adcUrl = '/admin/ADClunmsManageEdit?ID=' + row.ID;
+            }
+            else {
+                $.messager.alert("提示！", "请选择数据，再操作！");
+            }
+
+
+        }
+
+        //删除操作
+        function adcRemove() {
+            var rows = $('#dgADC').datagrid('getSelections');
+
+            if (rows.length > 0) {
+
+                if (confirm("确认删除？")) {
+                    var parm;
+                    $.each(rows, function (i, n) {
+                        if (i == 0) {
+                            parm = "ID=" + n.ID;
+                        }
+                        else {
+                            parm += "&ID=" + n.ID;
+
+                        }
+                    });
+
+                    $.ajax({
+                        url: '/admin/ADClunmsManageDel',
+                        data: parm,
+                        type: 'post',
+                        success: function (date) {
+                            if (date == "OK") {
+                                alert("操作成功！");
+                                $('#dgADC').datagrid('reload');
+                                $('#dgADC').datagrid('clearSelections');
+                            }
+                        }
+                    });
+
+                }
+
+            } else {
+                $.messager.alert("提示！", "请选择数据，再操作！");
+
+            }
+
+
+        }
+
+        //模糊查询操作
+        function adcSearch() {
+
+            $('#dgADC').datagrid('load', { adcAccount: $('#adcSER').val() });
+
+        }
+
+        //确认提交数据
+        function adcBtnOK() {
+
+            $('#ADCfrm').form('submit', {
+                url: adcUrl,
+                onSubmit: function () {
+                    return $(this).form('validate');
+                },
+                success: function (data) {
+                    var result = eval('(' + data + ')');
+                    if (result.success) {
+                        $('#ddADC').dialog('close');
+                        $.messager.alert("提示！", "操作成功！");
+                        $('#dgADC').datagrid('reload');
+                    }
+                    if (result.no) {
+                        $.messager.alert("提示！", "上传的照片格式不对！请用.jpg/.gif/.png的照片上传！");
+                    }
+                }
+            });
+
+        }
+
+        //关闭对话框操作
+        function adcBtnClose() {
+            $('#ddADC').dialog('close');
+        }
+
+    </script>
+
+    <table id="dgADC"></table>
+
+    <div id="tbADC">
+        <a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-add',plain:true" onclick="adcAdd()" title="点击进行添加操作"></a>
+        <a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-remove',plain:true" onclick="adcRemove()" title="选择用户，点击删除"></a>
+        <a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-edit',plain:true" onclick="adcEdit()" title="选择用户，点击进行修改操作"></a>
+        <input class="easyui-textbox" data-options="iconCls:'icon-search'" style="width: 150px" id="adcSER" />
+        <a href="#" class="easyui-linkbutton" style="width: 60px" data-options="iconCls:'icon-search',plain:true" onclick="adcSearch()" title="在输入框里，输入公司名称，点击进行搜索"></a>
+    </div>
+
+    <div id="ddADC" class="easyui-dialog" style="width: 400px; height: 500px;"
+        data-options="resizable:true,modal:true,closed:true,buttons:'#bbADC'">
+        <form id="ADCfrm" enctype="multipart/form-data" method="post">
+            <table border="0" cellspacing="40">
+                <tr>
+                    <td>所属公司</td>
+                    <td>
+                        <input id="adCompany" name="adCompany"
+                            class="easyui-validatebox" data-options="required:true,validType:'minLength[4]'" />
+                    </td>
+                </tr>
+                <tr>
+                    <td>备注描述</td>
+                    <td>
+                        <textarea id="adRemarks" name="adRemarks"
+                            style="width: 170px; height: 60px;"></textarea></td>
+                </tr>
+                <tr>
+                    <td>广告链接</td>
+                    <td>
+                        <input id="adURL" name="adURL" class="easyui-validatebox"
+                            data-options="required:true,validType:'url'" />
+                    </td>
+                </tr>
+                <tr>
+                    <td>联系电话</td>
+                    <td>
+                        <input id="adCompanyTel" name="adCompanyTel" class="easyui-validatebox"
+                            data-options="required:true,validType:'telephone'" />
+                    </td>
+                </tr>
+                <tr>
+                    <td>广告照片</td>
+                    <td>
+                        <input style="width: 180px;" type="file" name="adPhoto" id="adPhoto"
+                            class="easyui-validatebox" required="true" />
+                    </td>
+                </tr>
+            </table>
+
+        </form>
+    </div>
+
+    <div id="bbADC">
+        <a href="#" class="easyui-linkbutton" onclick="adcBtnOK()">保存</a>
+        <a href="#" class="easyui-linkbutton" onclick="adcBtnClose()">关闭</a>
+    </div>
+
+</body>
+</html>

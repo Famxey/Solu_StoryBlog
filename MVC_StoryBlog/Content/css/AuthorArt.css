@@ -1,0 +1,52 @@
+﻿* {
+    margin: 0px;
+    padding: 0px;
+}
+
+body {
+    background-image: url(../../Images/AuthorIMG/A6.jpg);
+}
+
+#atb {
+    /*border: 1px solid red;*/
+    width: 900px;
+    text-align: center;
+}
+
+    #atb a {
+        text-decoration: none;
+    }
+
+    #atb tr td {
+        border-top: 1px solid rgba(168, 166, 166, 0.86);
+        border-bottom: 1px solid rgba(168, 166, 166, 0.86);
+    }
+
+.th1 {
+    /*border:1px solid red;*/
+    width: 50px;
+    height: 30px;
+    line-height: 30px;
+    overflow: hidden;
+}
+
+.th2 {
+    width: 200px;
+    height: 30px;
+    line-height: 30px;
+    overflow: hidden;
+}
+
+.th3 {
+    width: 40px;
+    height: 30px;
+    line-height: 30px;
+    overflow: hidden;
+}
+
+.th4 {
+    width: 100px;
+    height: 30px;
+    line-height: 30px;
+    overflow: hidden;
+}

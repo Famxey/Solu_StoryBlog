@@ -1,0 +1,81 @@
+﻿* {
+    margin: 0px;
+    padding: 0px;
+}
+
+#tops {
+    /*border: 1px solid red;*/
+    height: 50px;
+    width: 100%;
+     background-image: url(../../Images/bj_zhuce.jpg);
+    /*background-repeat:round;*/
+}
+
+
+
+#t_con {
+    /*border: 1px solid blue;*/
+    height: 48px;
+    width: 80%;
+    margin: 0px auto;
+}
+
+    #t_con:hover {
+        /*border: 1px solid blue;*/
+        height: 50px;
+        width: 80%;
+        background-color: rgba(128, 128, 128, 0.21);
+        margin: 0px auto;
+    }
+
+    #t_con ul li {
+        float: left;
+        font-size: 30px;
+        font-weight: bold;
+        text-align: center;
+        line-height: 48px;
+        list-style: none;
+        height: 48px;
+        width: 19%;
+    }
+
+        #t_con ul li a {
+            text-decoration: none;
+        }
+
+            #t_con ul li a:hover {
+                color: white;
+            }
+
+#lr {
+    float: right;
+    line-height: 48px;
+}
+
+    #lr a {
+        text-decoration: none;
+    }
+
+        #lr a:hover {
+            color: orange;
+        }
+
+
+
+#bottoms {
+    /*border: 1px solid red;*/
+    height: 40px;
+    width: 100%;
+     background-image: url(../../Images/bj_zhuce.jpg);
+    /*background-repeat:round;*/
+}
+
+    #bottoms h4 {
+        color: white;
+        padding-top: 10px;
+        text-align: center;
+    }
+
+#user {
+    display: none;
+}

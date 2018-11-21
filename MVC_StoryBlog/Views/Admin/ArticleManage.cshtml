@@ -1,0 +1,109 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>ArticleManage</title>
+</head>
+<body>
+    <script type="text/javascript">
+
+        $('#dgArt').datagrid({
+            fit: true,
+            fitColumns: true,
+            remoteSort: false,
+            pagination: true,
+            pageSize: 20,
+            pageList: [20, 40, 50, 100],
+            url: '/admin/ArticleManageSel',
+            columns: [[
+                { align: 'center', checkbox: true, field: 'ck' },
+                { field: 'ID', title: '编号', align: 'center', sortable: true, },
+                { field: 'artNo', title: '文章流水号', width: 100, align: 'center', sortable: true, },
+                { field: 'Title', title: '标题', width: 100, align: 'center' },
+                { field: 'uAccount', title: '所属作者', align: 'center' },
+                { field: 'artAuthority', title: '状态', align: 'center', formatter: Aut },
+                { field: 'artHot', title: '浏览量', align: 'center', sortable: true, },
+                { field: 'artComCnt', title: '评论量', align: 'center', sortable: true, },
+                { field: 'artDigest', title: '摘要', width: 100, align: 'center' },
+                { field: 'artCreateTimeA', title: '编写时间', width: 100, align: 'center', sortable: true, },
+            ]],
+            toolbar: '#tbart'
+        });
+
+        function Aut(value, row, index) {
+            if (value == 1) {
+                return "<span style='color:black;'>公开</span>";
+            }
+            else {
+                return "<span style='color:red;'>保密</span>";
+            }
+
+        }
+
+
+        function artRemove() {
+            var rows = $('#dgArt').datagrid('getSelections');
+
+            if (rows.length > 0) {
+
+                if (confirm("确认删除？")) {
+                    var parm;
+                    $.each(rows, function (i, n) {
+                        if (i == 0) {
+                            parm = "ID=" + n.ID;
+                        }
+                        else {
+                            parm += "&ID=" + n.ID;
+
+                        }
+                    });
+
+                    $.ajax({
+                        url: '/admin/ArticleManageDel',
+                        data: parm,
+                        type: 'post',
+                        success: function (date) {
+                            if (date == "OK") {
+                                alert("操作成功！");
+                                $('#dgArt').datagrid('reload');
+                                $('#dgArt').datagrid('clearSelections');
+                            }
+                        }
+                    });
+
+                }
+
+            } else {
+                alert("请选择数据，再操作！");
+            }
+
+
+        }
+
+
+        function artSearch() {
+
+            $('#dgArt').datagrid('load', { artAccount: $('#artSER').val() });
+
+        }
+
+
+    </script>
+
+    <table id="dgArt"></table>
+
+
+
+    <div id="tbart">
+        <a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-remove',plain:true" onclick="artRemove()" title="选择用户，点击删除"></a>
+        <input class="easyui-textbox" data-options="iconCls:'icon-search'" style="width: 150px" id="artSER" />
+        <a href="#" class="easyui-linkbutton" style="width: 60px" data-options="iconCls:'icon-search',plain:true" onclick="artSearch()" title="在输入框里，输入作者账号或文章标题，点击进行搜索"></a>
+    </div>
+
+</body>
+</html>

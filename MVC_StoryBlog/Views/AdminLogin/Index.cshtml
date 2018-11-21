@@ -1,0 +1,39 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>事迹博客后台管理登录</title>
+    <link href="~/Content/css/adminlogin.css" rel="stylesheet" />
+</head>
+<body>
+    <div id="adLoginBox">
+        @using (Html.BeginForm())
+        {                                                    
+            <table id="admintb">
+                <tr>
+                    <th colspan="2"><a id="backIndex" href="/home/index" title="点击跳转到前端首页...">因有事迹&nbsp;才会浪漫</a></th>
+                </tr>
+                <tr>
+                    <td class="td2">账号：</td>
+                    <td>
+                        <input id="aAccount" name="aAccount" type="text" /></td>
+                </tr>
+                <tr>
+                    <td class="td2">密码：</td>
+                    <td>
+                        <input id="aPwd" name="aPwd" type="password" /></td>
+                </tr>
+                <tr>
+                    <td colspan="2" class="td3">
+                        <input type="submit" value="登录" id="btnlogin" /></td>
+                </tr>
+            </table>   
+        }
+    </div>
+</body>
+</html>
