@@ -42,7 +42,7 @@ namespace MVC_StoryBlog.Controllers
                 if (oldapwd != "" && apwd != "" && reapwd != "")
                 {
 
-                    //判断原始密码是否正确
+                    //判断原始密码是否正确s
                     if (PassWord == oldapwd)
                     {
                         //判断是否包含英文字符
